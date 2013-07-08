@@ -28,7 +28,7 @@ class Tenant(models.Model):
     database_options=models.TextField(default='{}')
 
     def __unicode__(self):
-        return u'{} ({}) {}'.format(self.database_name, self.site,
+        return u'{} ({}) {}'.format(self.database_name, self.alias,
             self.database_host)
 
     class Meta:
