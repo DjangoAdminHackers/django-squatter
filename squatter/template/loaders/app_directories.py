@@ -31,15 +31,15 @@ class Loader(BaseLoader):
         tenant = get_tenant()
         if tenant:
             alias = tenant.alias
-        if not template_dirs:
-            template_dirs = app_template_dirs
-        for template_dir in template_dirs:
-            try:
-                yield safe_join(template_dir, alias, template_name)
-            except UnicodeDecodeError:
-                # The template dir name was a bytestring that wasn't valid UTF-8.
-                raise
-            except ValueError:
-                # The joined path was located outside of template_dir.
-                pass
+            if not template_dirs:
+                template_dirs = app_template_dirs
+            for template_dir in template_dirs:
+                try:
+                    yield safe_join(template_dir, alias, template_name)
+                except UnicodeDecodeError:
+                    # The template dir name was a bytestring that wasn't valid UTF-8.
+                    raise
+                except ValueError:
+                    # The joined path was located outside of template_dir.
+                    pass
 
