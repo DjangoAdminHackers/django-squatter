@@ -19,6 +19,8 @@ def set_site(site):
     from django.db import connections
     tenant = site.tenants.all()[0]
     alias = tenant.alias
+    from settings_tenants import apply_tenant_settings
+    apply_tenant_settings(alias)
     db = {
         'ENGINE': tenant.database_engine,
         'HOST': tenant.database_host,
