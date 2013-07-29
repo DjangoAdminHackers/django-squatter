@@ -18,11 +18,13 @@ class TenancyMiddleware:
         # http://stackoverflow.com/questions/1160598/how-to-use-schemas-in-django
         # This will make sure that queries on this model will always go to the master schema
         domain = request.get_host()
-        try:
+        site = None
+        if Site.objects.filter(domain=domain).exists():
             site = Site.objects.get(domain=domain)
+        elif Site.objects.filter(domain=domain.replace('.www', '')).exists():
+            site = Site.objects.get(domain=domain.replace('.www', ''))
+        if site:
             set_site(site)
-        except Site.DoesNotExist:
-            pass
         return None
 
     def process_response(self, request, response):
