@@ -21,10 +21,14 @@ class TenancyMiddleware:
         site = None
         if Site.objects.filter(domain=domain).exists():
             site = Site.objects.get(domain=domain)
-        elif Site.objects.filter(domain=domain.replace('.www', '')).exists():
-            site = Site.objects.get(domain=domain.replace('.www', ''))
+        elif Site.objects.filter(domain=domain.replace('www.', '')).exists():
+            site = Site.objects.get(domain=domain.replace('www.', ''))
+        elif Site.objects.filter(domain=domain.replace('test.', '')).exists():
+            site = Site.objects.get(domain=domain.replace('test.', ''))
         elif Site.objects.filter(domain='www.%s' % domain).exists():
             site = Site.objects.get(domain='www.%s' % domain)
+        elif Site.objects.filter(domain='test.%s' % domain).exists():
+            site = Site.objects.get(domain='test.%s' % domain)
         if site:
             set_site(site)
         return None
