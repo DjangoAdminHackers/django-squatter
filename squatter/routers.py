@@ -23,6 +23,6 @@ class TenancyRouter(object):
         """
         Attempts to write auth models go to auth_db.
         """
-        if model._meta.app_label in ['squatter', 'sites']:
+        if model._meta.app_label in ['squatter', 'sites', 'robots']:
             return 'default'
         return self._name(model, **hints)
