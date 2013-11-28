@@ -15,7 +15,7 @@ class TenancyRouter(object):
         """
         Attempts to read auth models go to auth_db.
         """
-        if model._meta.app_label in ['squatter', 'sites']:
+        if model._meta.app_label in ['squatter', 'sites', 'robots']:
             return 'default'
         return self._name(model, **hints)
 
