@@ -29,6 +29,8 @@ def set_site(site):
         'PORT': tenant.database_port,
         'PASSWORD': tenant.database_password,
         'OPTIONS': json.loads(tenant.database_options),
+        'CONN_MAX_AGE': 0,
+        'AUTOCOMMIT': True
     }
     backend = load_backend(db['ENGINE'])
     conn = backend.DatabaseWrapper(db, alias)
